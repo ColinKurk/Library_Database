@@ -1,0 +1,301 @@
+CREATE DATABASE db_Library
+
+CREATE TABLE  tbl_book (
+	book_id int primary key not null identity (1,1),
+	book_title varchar(75) not null, 
+	book_publishername varchar(75) not null)
+	FOREIGN KEY (book_publishername) REFERENCES tbl_publisher(publisher_name);
+
+INSERT INTO tbl_book 
+	(book_title, book_publishername)
+	VALUES 
+	('Blue Moon','Cheese'),
+	('Crystal Water','Mountain'),
+	('Black Rock', 'Earth'),
+	('Web', 'Cheese'),
+	('The Lost Tribe', 'Earth'),
+	('Application', 'Apple'),
+	('Teamwork', 'Starbucks'),
+	('Tech', 'Academy'),
+	('Alpine', 'Mountain'),
+	('Course', 'Apple'),
+	('Logger', 'Cheese'),
+	('Survey Team', 'Earth'),
+	('Fit Guide', 'Academey'),
+	('Story of Steve', 'Apple'),
+	('How to Understand SQL for people named Colin', 'Yoda'),
+	('Is The Matrix non-fiction', 'Cheese'),
+	('Loan Shark', 'Mountain'),
+	('Shark Boy', 'Earth'),
+	('Water Rat', 'Starbucks'),
+	('Kick Ball', 'Academy');
+
+SELECT * FROM tbl_book;
+
+CREATE TABLE tbl_author (
+	author_id int foreign key references tbl_book(book_id),
+	author_authorname VARCHAR(75) not null);
+
+INSERT INTO tbl_author
+	(author_id, author_authorname)
+	values
+	('1','Stephen King'),
+	('2','Tommy'),
+	('3','Lisa'),
+	('4','Thor'),
+	('5','Sara'),
+	('6','Frank'),
+	('7','Jessie'),
+	('8','Alex'),
+	('9','Jamie'), 
+	('10','Sven');
+
+SELECT * FROM tbl_author;
+
+CREATE TABLE tbl_publisher (
+	publisher_name varchar(75) PRIMARY KEY not null, 
+	publisher_address varchar(75) not null,
+	publisher_phone varchar(75) not null);
+
+
+INSERT INTO tbl_publisher 
+	(publisher_name, publisher_address, publisher_phone)
+	VALUES
+	('Cheese','111 1st St Portland OR','111-222-3333'),
+	('Mountain','222 2nd St San Francisco CA','222-333-4444'),
+	('Earth','333 3rd St Los Angeles CA','333-444-5555'),
+	('Apple','444 4th St Boise ID','444-555-6666');
+
+SELECT * FROM tbl_publisher;
+
+CREATE TABLE tbl_loans (
+	loans_id INT FOREIGN KEY REFERENCES tbl_book(book_id),
+	loans_branch varchar(100) not null, 
+	loans_cardno varchar(100) not null,
+	loans_dateout varchar(100) not null,
+	loans_duedate varchar(100) not null);
+
+INSERT INTO tbl_loans 
+	(loans_id, loans_branch, loans_cardno, loans_dateout, loans_duedate)
+	FOREIGN KEY (loans_cardno) REFERENCES tbl_borrow(borrow_cardno)
+	ADD FOREIGN KEY (loans_branch) REFERENCES tbl_branch(branch_id);
+	VALUES
+	('1','2','20','1/1/2017','1/1/2018'),
+	('2','3','89','2/15/2017','2/15/2018'),
+	('11','5','44','3/3/2013','3/3/2014'),
+	('5','5','99','4/6/2010','4/6/2011'),     	
+	('20','1','9','6/9/2014','6/9/2015'),		
+	('6','1','83','1/12/2012','1/12/2013'),
+	('2','4','44','12/25/2000','12/25/2001'),
+	('1','2','3','1/2/1950','1/2/1951'),
+	('1','2','3','1/2/1950','1/2/1951'),
+	('2','3','4','2/3/1951','2/3/1952'),
+	('3','4','5','4/5/1952','4/5/1953'),
+	('4','5','6','5/6/1953','5/6/1954'),
+	('5','6','7','6/7/1954','6/7/1955'),
+	('6','7','22','1/2/1955','4/31/1956'),
+	('7','8','44','2/3/1956','5/3/1957'),
+	('8','9','21','3/4/1957','5/7/1958'),
+	('9','1','31','4/5/1958','5/20/1959'),
+	('10','2','63','5/6/1959','5/24/1960'),
+	('11','3','23','6/7/1960','6/8/1961'),
+	('12','4','45','7/8/1961','6/9/1962'),
+	('13','5','9','8/9/1962','7/7/1963'),
+	('14','6','11','9/10/1963','7/9/1964'),
+	('15','7','45','10/11/1964','7/29/1965'),
+	('16','1','32','11/12/1965','7/30/1966'),
+	('17','2','66','12/13/1966','8/14/1967'),
+	('18','3','53','1/14/1967','8/20/1968'),
+	('19','4','36','2/15/1968','8/30/1969'),
+	('1','1','93','3/16/1969','9/13/1970'),
+	('2','1','32','4/17/1970','9/17/1971'),
+	('3','5','65','5/18/1970','9/31/1972'),
+	('4','4','63','6/19/1971','10/1/1973'),
+	('5','3','72','7/20/1972','10/2/1974'),
+	('6','2','56','8/21/1973','10/7/1975'),
+	('7','1','72','9/22/1974','10/9/1976'),
+	('8','4','24','10/23/1975','10/12/1977'),
+	('9','2','63','11/24/1976','10/13/1978'),
+	('10','1','23','12/25/1977','10/17/1979'),
+	('11','4','74','1/26/1978','10/19/1980'),
+	('12','2','67','2/27/1979','10/20/1981'),
+	('13','5','42','3/28/1980','10/22/1982'),
+	('14','3','53','4/29/1981','10/24/1983'),
+	('15','5','37','5/30/1982','10/26/1984'),
+	('16','4','77','6/1/1983','10/27/1985'),
+	('17','3','31','7/2/1984','11/10/1986'),
+	('18','1','11','8/3/1985','12/1/1987'),
+	('19','2','12','9/4/1986','12/2/1987'),
+	('1','3','52','10/5/1987','12/3/1988'),
+	('2','4','18','11/6/1988','12/6/1989'),
+	('3','5','84','12/7/1989','12/20/1990'),
+	('4','1','36','1/8/1990','12/25/1991'),
+	('5','2','78','2/9/1991','12/29/1992');
+
+SELECT * FROM tbl_loans;
+
+CREATE TABLE tbl_copies (
+	copies_id INT  FOREIGN KEY REFERENCES tbl_book(book_id),
+	copies_branch varchar(75) not null, 
+	copies_number varchar(75) not null);
+
+INSERT INTO tbl_copies 
+	(copies_id, copies_branch, copies_number)
+	VALUES
+	('1','1','2'),
+	('2','2','2'),
+	('3','3','2'),
+	('4','4','2'),
+	('5','1','2'),
+	('6','2','2'),
+	('7','3','2'),
+	('8','4','2'),
+	('9','1','2'),
+	('10','2','2'),
+	('11','3','2'),
+	('12','4','1'),
+	('13','1','1'),
+	('14','2','2'),
+	('15','3','2'),
+	('16','4','1'),
+	('17','1','2'),
+	('18','2','1'),
+	('19','3','2'),
+	('1','4','2'),
+	('2','1','2'),
+	('3','2','1'),
+	('4','3','2'),
+	('5','4','2'),
+	('6','1','1'),
+	('7','2','2'),
+	('8','3','1'),
+	('9','4','2'),
+	('10','1','1'),
+	('11','2','2'),
+	('12','3','2'),
+	('13','4','2'),
+	('14','1','1'),
+	('15','2','2'),
+	('16','3','2'),
+	('17','4','2'),
+	('18','1','1'),
+	('19','2','1');
+
+SELECT * FROM tbl_copies;
+
+CREATE TABLE tbl_borrow (
+	borrow_cardno varchar(75) primary key not null, 
+	borrow_name varchar(75) not null,
+	borrow_address varchar(75) not null,
+	borrow_phone varchar(75) not null);
+
+INSERT INTO tbl_borrow 
+	(borrow_cardno, borrow_name, borrow_address, borrow_phone)
+	VALUES
+	('1','Dave','111 25th St','123-4567'),
+	('2','Bill','222 35th St','212-6554'),
+	('3','Courtney','765 Main St','821-5376'),
+	('4','Tom','882 Broadway','831-6635'),
+	('5','Kate','555 20th Ave','265-2675'),
+	('6','Kim','8373 56th Ave','123-0987'),
+	('7','Larry','5150 10th St','552-8421'),
+	('8','Hanna','442 9th St','777-8833');
+
+SELECT * FROM tbl_borrow;
+
+CREATE TABLE tbl_branch (
+	branch_id varchar(75) primary key not null,
+	branch_name varchar(75)  not null, 
+	branch_address varchar(75) not null
+	ADD FOREIGN KEY (copies_branch) REFERENCES tbl_branch(branch_id);
+
+INSERT INTO tbl_branch 
+	(branch_id,branch_name, branch_address)
+	VALUES
+	('1','Sharpstown','111 1st St'),
+	('2','Central','222 2nd St'),
+	('3','Upper','333 3rd St'),
+	('4','Lower','444 4th St');
+
+SELECT * FROM tbl_branch;
+
+/*StoredProcedures*/
+
+USE db_Library
+GO
+
+CREATE PROCEDURE dbo.search_losttribesharpstown
+AS
+
+SELECT *
+FROM tbl_book 
+ inner join tbl_copies ON tbl_book.book_id = tbl_copies.copies_id
+  inner join tbl_branch ON tbl_copies.copies_branch = tbl_branch.branch_id
+   where copies_id = '1' and copies_branch = '1'
+  go
+exec dbo.search_losttribesharpstown;
+
+
+CREATE PROCEDURE dbo.search_losttribebranch
+AS
+
+SELECT *
+FROM tbl_book 
+ inner join tbl_copies ON tbl_book.book_id = tbl_copies.copies_id
+ inner join tbl_branch ON tbl_copies.copies_branch = tbl_branch.branch_id
+ where copies_id = '1' order by copies_branch asc;
+go
+exec dbo.search_losttribebranch;
+
+CREATE PROCEDURE dbo.search_borrowers
+AS
+
+select borrow_name from tbl_borrow inner join tbl_loans on tbl_borrow.borrow_cardno= tbl_loans.loans_cardno
+where tbl_loans.loans_cardno = 'null'; 
+go
+exec dbo.search_borrowers;
+
+CREATE PROCEDURE dbo.search_sharpstowninventory
+AS
+
+select book_title, borrow_name, borrow_address
+from tbl_loans
+	INNER JOIN tbl_book ON tbl_loans.loans_id = tbl_book.book_id
+	INNER JOIN tbl_branch ON tbl_loans.loans_branch = tbl_branch.branch_id
+	INNER JOIN tbl_borrow ON tbl_loans.loans_cardno = tbl_borrow.borrow_cardno
+WHERE loans_branch = '1' and loans_duedate = '2/25/2018';
+go
+exec dbo.search_sharpstowninventory;
+
+CREATE PROCEDURE dbo.search_currentinventory
+AS
+
+select branch_name, count(loans_cardno)
+from tbl_branch inner join tbl_loans
+on tbl_loans.loans_branch = tbl_branch.branch_id
+group by branch_name;
+go
+exec dbo.search_currentinventory;
+
+CREATE PROCEDURE dbo.search_fiveormore
+AS
+
+select borrow_name, borrow_address, count(loans_cardno) 
+from tbl_loans inner join tbl_borrow 
+on tbl_loans.loans_cardno = tbl_borrow.borrow_cardno
+group by loans_cardno, borrow_name, borrow_address having count(loans_cardno) > 5;
+go
+exec dbo.search_fiveormore;
+
+CREATE PROCEDURE dbo.search_stephenkingcentral
+AS
+
+SELECT book_title, copies_number
+FROM tbl_book
+INNER JOIN tbl_copies ON tbl_book.book_id = tbl_copies.copies_id
+INNER JOIN tbl_author ON tbl_book.book_id = tbl_author.author_id
+INNER JOIN tbl_branch ON tbl_copies.copies_branch = tbl_branch.branch_id 
+where author_authorname = 'Stephen King'
+and copies_branch = '1';
+go
+exec dbo.search_stephenkingcentral;
